@@ -9,7 +9,7 @@
 		<h4>Add a new Actor</h4>
 		<div class="row">
 			<div class="col-md-8 offset-2">
-                <form asp-action="Create"s>
+                <form asp-action="Create">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <div class="text-center">
@@ -44,6 +44,10 @@
 
 @section Scripts{
     <script>
+        $(document).ready(function () {
+            var output = document.getElementById("ProfilePicturePreview");
+            output.src = $("#ProfilePictureURL").val();
+        })
         $("#ProfilePictureURL").on("change", function() {
             var output = document.getElementById("ProfilePicturePreview");
             output.src = $(this).val();
