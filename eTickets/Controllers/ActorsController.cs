@@ -46,7 +46,7 @@ namespace eTickets.Controllers
             return View(actorDetails);
         }
 
-		// Get: Action/Edit
+		// Get: Action/Edit/1
 		public async Task<IActionResult> Edit(int id)
 		{
 			var actorDetails = await _service.GetActorByIdAsync(id);
@@ -64,6 +64,27 @@ namespace eTickets.Controllers
 			}
 
 			await _service.UpdateAsync(id, actor);
+			return RedirectToAction(nameof(Index));
+
+		}
+
+		// Get: Action/Delete/1
+		public async Task<IActionResult> Delete(int id)
+		{
+			var actorDetails = await _service.GetActorByIdAsync(id);
+
+			if (actorDetails == null) return View("NotFound");
+			return View(actorDetails);
+		}
+
+		[HttpPost, ActionName("Delete")]
+		public async Task<IActionResult> DeleteConfirm(int id)
+		{
+			var actorDetails = await _service.GetActorByIdAsync(id);
+			if (actorDetails == null) return View("NotFound");
+
+			await _service.DeleteAsync(id);
+
 			return RedirectToAction(nameof(Index));
 
 		}
